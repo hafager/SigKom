@@ -40,6 +40,10 @@ function lag_toner(tall)
         y = x1+x2;
         sound(y, Fs);
         pause(0.7);
+        
+    else
+            disp('Det finnes en feil i nummeret du oppgav. Prøv igjen.');
+            kode()
     end
     
     

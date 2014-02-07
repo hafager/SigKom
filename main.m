@@ -45,7 +45,7 @@ function lag_toner(tall)
             pause(0.7);
         
         else
-            disp('Det finnes en feil i nummeret du oppgav. Prøv igjen.');
+            disp('Det finnes en feil i nummeret du oppgav. Prï¿½v igjen.');
             %kode()
             
         end

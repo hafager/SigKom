@@ -3,11 +3,11 @@
 
 
 
-function kode()
-    %telefon_nr = input('Vennligst skriv inn dit telefonnummer: ');
-    telefon_nr = '48123012';
+function main()
+    telefon_nr = input('Vennligst skriv inn dit telefonnummer: ', 's');
     lag_toner(telefon_nr);
-    %spill_av(toner);
+    %play_sound(toner);
+    
     
     
 end
@@ -29,11 +29,12 @@ function lag_toner(tall)
     tmax = 0.2;
     dt = 1/Fs;
     t = tmin:dt:tmax;
-    nummer = zeros(1, length(tall));
-    disp(nummer)
-    for i=1:length(tall),
-        disp(i)
-        siffer = tall(i);
+    toner = [];
+    disp(tall)
+    for i= tall
+        
+        siffer = i;
+        disp(siffer);
         
         if siffer=='#'||siffer=='*'||siffer=='0'||siffer=='1'||siffer=='2'||siffer=='3'||siffer=='4'||siffer=='5'||siffer=='6'||siffer=='7'||siffer=='8'||siffer=='9'
 
@@ -46,14 +47,12 @@ function lag_toner(tall)
             end
             x1 = cos(total(1,str2num(siffer))*2*pi*t);
             x2 = cos(total(2,str2num(siffer))*2*pi*t);
-            y = x1+x2;
-            %nummer(i) = y;
-            sound(y, Fs);
-            pause(0.7);
+            y = conv(x1,x2);
+            toner = [toner; y];
         
         else
             disp('Det finnes en feil i nummeret du oppgav. Proev igjen.');
-            %kode()
+            main()
             
         end
     end

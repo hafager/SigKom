@@ -1,6 +1,11 @@
+%% *Project*
+% *Part 1*
+
+
+
 function kode()
     %telefon_nr = input('Vennligst skriv inn dit telefonnummer: ');
-    telefon_nr = '4812sd3k012';
+    telefon_nr = '48123012';
     lag_toner(telefon_nr);
     %spill_av(toner);
     
@@ -24,8 +29,9 @@ function lag_toner(tall)
     tmax = 0.2;
     dt = 1/Fs;
     t = tmin:dt:tmax;
-    
-    for i=1:8,
+    nummer = zeros(1, length(tall));
+    disp(nummer)
+    for i=1:length(tall),
         disp(i)
         siffer = tall(i);
         
@@ -41,11 +47,12 @@ function lag_toner(tall)
             x1 = cos(total(1,str2num(siffer))*2*pi*t);
             x2 = cos(total(2,str2num(siffer))*2*pi*t);
             y = x1+x2;
+            %nummer(i) = y;
             sound(y, Fs);
             pause(0.7);
         
         else
-            disp('Det finnes en feil i nummeret du oppgav. Pr�v igjen.');
+            disp('Det finnes en feil i nummeret du oppgav. Proev igjen.');
             %kode()
             
         end

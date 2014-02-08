@@ -1,19 +1,20 @@
 %% *Project*
-% *Part 1*
+% Part 1
 
 
+
+% HOVEDFUNKSJON
 
 function main()
-    telefon_nr = input('Vennligst skriv inn dit telefonnummer: ', 's');
-    lag_toner(telefon_nr);
-    %play_sound(toner);
-    
-    
-    
+    telefon_nr = input('Vennligst skriv inn ditt telefonnummer: ', 's');    
+    lag_og_spill_toner(telefon_nr);    
 end
 
-function lag_toner(tall)
+% LAGER OG SPILLER AV TONENE
+function lag_og_spill_toner(tall)
     
+
+    % Her lager vi en matrise der hver kolone tilsvarer frekvensparene som representerer tastetrykket 
     kolonner = [1209, 1336, 1477];
     rader = [697, 770, 852, 941];
     total = [];
@@ -22,22 +23,19 @@ function lag_toner(tall)
             total = [ total [rader(i); kolonner(s)]];
         end
     end
-    disp(total)
-    
-    Fs = 8000;
-    tmin = 0;
-    tmax = 0.2;
-    dt = 1/Fs;
-    t = tmin:dt:tmax;
-    toner = [];
-    disp(tall)
-    for i= tall
-        
-        siffer = i;
-        disp(siffer);
-        
-        if siffer=='#'||siffer=='*'||siffer=='0'||siffer=='1'||siffer=='2'||siffer=='3'||siffer=='4'||siffer=='5'||siffer=='6'||siffer=='7'||siffer=='8'||siffer=='9'
 
+    % Her lager vi variabelene vi skal bruke
+    Fs = 8000;      % Samplingsfrekvens
+    dt = 1/Fs;      % Perioden
+    t = 0:dt:0.2;   % Matrise for tiden ved hver sampling
+    pause = zeros(1,Fs*0.05);   % Pause mellom tonene. 8000*0.05 = 400
+    toner = [];     % Oppretter matrise som vi skal legge alle tonene inn i
+
+    for i= tall
+        siffer = i;
+        % Sjekker om det fins ugyldig input
+        if siffer=='#'||siffer=='*'||siffer=='0'||siffer=='1'||siffer=='2'||siffer=='3'||siffer=='4'||siffer=='5'||siffer=='6'||siffer=='7'||siffer=='8'||siffer=='9'
+            % Endrer verdien for 0, * og # for å få riktig indeks i 'total'
             if siffer == '#'
                 siffer = '12';
             elseif siffer == '*'
@@ -45,18 +43,26 @@ function lag_toner(tall)
             elseif siffer == '0'
                 siffer = '11';
             end
+            
+            % Genererer signalet, og legger det til i toner
             x1 = cos(total(1,str2num(siffer))*2*pi*t);
             x2 = cos(total(2,str2num(siffer))*2*pi*t);
-            y = conv(x1,x2);
-            toner = [toner; y];
+            y = x1+x2;      % Legger sammen de to signalene
+            toner = [toner y];
+            toner = [toner pause];
         
         else
+            % Hvis det finnes ugyldig input, kaller den programmet på nytt.
             disp('Det finnes en feil i nummeret du oppgav. Proev igjen.');
+            toner = [];
             main()
+            break
+            
             
         end
+        
     end
-    
+    sound(toner);
     
 end
 

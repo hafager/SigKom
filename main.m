@@ -28,7 +28,7 @@ function lag_og_spill_toner(tall)
     Fs = 8000;      % Samplingsfrekvens
     dt = 1/Fs;      % Perioden
     t = 0:dt:0.2;   % Matrise for tiden ved hver sampling
-    pause = zeros(1,Fs*0.05);   % Pause mellom tonene. 8000*0.05 = 400
+    stille = zeros(1,Fs*0.05);   % Pause mellom tonene. 8000*0.05 = 400
     toner = [];     % Oppretter matrise som vi skal legge alle tonene inn i
 
     for i= tall
@@ -49,7 +49,7 @@ function lag_og_spill_toner(tall)
             x2 = cos(total(2,str2num(siffer))*2*pi*t);
             y = x1+x2;      % Legger sammen de to signalene
             toner = [toner y];
-            toner = [toner pause];
+            toner = [toner stille];
         
         else
             % Hvis det finnes ugyldig input, kaller den programmet på nytt.
@@ -62,7 +62,8 @@ function lag_og_spill_toner(tall)
         end
         
     end
-    sound(toner);
+    % Spiller av tonene med riktig frekvens
+    sound(toner, Fs);
     
 end
 

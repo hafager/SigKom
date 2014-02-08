@@ -3,3 +3,4 @@ Hei. Dette er en chatteklient. Her kan det chattes.
 ---------------------------------------------------
 ---------------------------------------------------
 Jon Magnus: Funker koden nå?
+Håvard: Nei
